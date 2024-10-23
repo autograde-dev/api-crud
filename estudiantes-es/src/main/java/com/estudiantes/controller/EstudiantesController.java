@@ -1,7 +1,6 @@
 package com.estudiantes.controller;
 
 import com.estudiantes.dto.MessageDto;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.estudiantes.entity.EstudiantesEntity;
 import com.estudiantes.service.EstudiantesService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 
 @RestController
@@ -27,6 +27,7 @@ public class EstudiantesController {
     @Autowired
     private EstudiantesService estudiantesService;
 
+    @Operation(summary = "Listar todos los estudiantes")
     @GetMapping("/find-all")
     public ResponseEntity<?> getEstudiantes() {
         var estudiantes = estudiantesService.getEstudiantes();
@@ -36,6 +37,7 @@ public class EstudiantesController {
         return new ResponseEntity<>(estudiantes, HttpStatus.OK);
     }
 
+    @Operation(summary = "Listar estudiantes por pagina")
     @GetMapping("/findall-page/{page}/{size}")
     public ResponseEntity<?> findPage(@PathVariable  int page, @PathVariable int size) {
         var estudiantes= estudiantesService.findPage(page,size);
@@ -45,6 +47,7 @@ public class EstudiantesController {
         return new ResponseEntity<>(estudiantes, HttpStatus.OK);
     }
 
+    @Operation(summary = "Buscar estudiante por id")
     @GetMapping("find-by-id/{id}")
     public ResponseEntity<?> getEstudiantesbyId(@PathVariable("id") Long id) {
         var estudiante = estudiantesService.getEstudiantesbyId(id);
@@ -54,6 +57,7 @@ public class EstudiantesController {
         return new ResponseEntity<>(estudiante, HttpStatus.OK);
     }
 
+    @Operation(summary = "Buscar estudiante por documento")
     @GetMapping("find-by-documento/{documento}")
     public ResponseEntity<?> getEstudianteByDocumento(@PathVariable("documento") String documento) {
         var estudiante = estudiantesService.getEstudianteByDocumento(documento);
@@ -63,6 +67,7 @@ public class EstudiantesController {
         return new ResponseEntity<>(estudiante, HttpStatus.OK);
     }
 
+     @Operation(summary = "Crear estudiante")
     @PostMapping("insertar/")
     public ResponseEntity<MessageDto> insertarEstudiante(@RequestBody EstudiantesEntity estudiantesEntity) {
         boolean response = estudiantesService.save(estudiantesEntity);
@@ -72,6 +77,7 @@ public class EstudiantesController {
         return ResponseEntity.internalServerError().body(new MessageDto(HttpStatus.INTERNAL_SERVER_ERROR, "Error Guardando"));
     }
 
+    @Operation(summary = "Eliminar estudiante por id")
     @DeleteMapping("borrar/{id}")
     public ResponseEntity<MessageDto> borrarEstudiante(@PathVariable long id) {
         boolean response = estudiantesService.deleteById(id);
@@ -81,6 +87,7 @@ public class EstudiantesController {
         return ResponseEntity.internalServerError().body(new MessageDto(HttpStatus.INTERNAL_SERVER_ERROR, "Error Eliminando"));
     }
 
+    @Operation(summary = "Actualizar estudiante por id")
     @PutMapping("actualizar/{id}")
     public ResponseEntity<MessageDto> updateEstudiante(@RequestBody EstudiantesEntity estudiantesEntity) {        
         boolean response = estudiantesService.update(estudiantesEntity);
