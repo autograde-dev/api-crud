@@ -13,7 +13,7 @@ FROM openjdk:21-oracle
 
 WORKDIR /app
 COPY --from=build /sources/target/auth-es*.war /app/auth-es.war
-EXPOSE 8080
+EXPOSE 8083
 
 
 CMD ["java", "-jar", "auth-es.war"]

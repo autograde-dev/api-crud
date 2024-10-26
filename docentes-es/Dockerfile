@@ -13,7 +13,7 @@ FROM openjdk:21-oracle
 
 WORKDIR /app
 COPY --from=build /sources/target/docentes-es*.war /app/docentes-es.war
-EXPOSE 8080
+EXPOSE 8082
 
 
 CMD ["java", "-jar", "docentes-es.war"]
