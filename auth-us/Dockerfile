@@ -1,5 +1,4 @@
-FROM maven:3.8.1-openjdk-21-slim AS build
-
+FROM maven:3.9.5-eclipse-temurin-21 AS build
 
 RUN mkdir /sources
 COPY ./ /sources
@@ -8,8 +7,7 @@ COPY ./ /sources
 RUN echo "Building app..." && cd /sources && mvn clean package -DskipTests
 
 
-FROM openjdk:21-oracle
-
+FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 COPY --from=build /sources/target/auth-es*.war /app/auth-es.war
