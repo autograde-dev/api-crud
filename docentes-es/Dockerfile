@@ -1,11 +1,11 @@
 FROM maven:3.9.5-eclipse-temurin-21 AS build
 
 
-RUN mkdir /sources
+WORKDIR /sources
 COPY ./ /sources
 
 
-RUN echo "Building app..." && cd /sources && mvn clean package -DskipTests
+RUN echo "Building app..." && mvn clean package -DskipTests
 
 
 FROM eclipse-temurin:21-jre
