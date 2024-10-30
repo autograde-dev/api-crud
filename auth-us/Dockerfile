@@ -12,8 +12,8 @@ FROM eclipse-temurin:21-jre
 
 
 WORKDIR /app
-COPY --from=build /sources/target/auth-es*.war /app/auth-es.war
+COPY --from=build /sources/target/auth-us*.war /app/auth-us.war
 EXPOSE 8080
 
 
-CMD ["java", "-jar", "auth-es.war"]
+CMD ["java", "-jar", "auth-us.war"]
